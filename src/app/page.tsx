@@ -15,9 +15,8 @@ export default function MainPage() {
   return (
     <main className="container mx-auto px-2 py-4 bg-transparent">
       <DailyFoodInput onFoodSaved={handleFoodSaved} />
-      <div className="mt-8"> {/* Added padding */}
-        <CalorieTable key={tableKey} />
-      </div>
+      <div className="mt-8">
+        <CalorieTable key={tableKey} foodItems={[]} />      </div>
     </main>
   )
 }

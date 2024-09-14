@@ -38,11 +38,11 @@ const foodEmojis: { [key: string]: string } = {
 }
 
 interface CalorieTableProps {
-  foodItems: FoodItem[];
+  foodItems?: FoodItem[]
 }
 
-export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTableProps) {
-  const [foodItems, setFoodItems] = useState<FoodItem[]>(initialFoodItems)
+export default function CalorieTable({ foodItems = [] }: CalorieTableProps) {
+  const [items, setItems] = useState<FoodItem[]>(foodItems)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   const { user, loading: authLoading } = useAuth() // Add loading state from useAuth
@@ -66,10 +66,10 @@ export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTab
         if (docSnap.exists()) {
           console.log('Document exists:', docSnap.data())
           const data = docSnap.data()
-          setFoodItems(data.food || [])
+          setItems(data.food || [])
         } else {
           console.log('No document found for today')
-          setFoodItems([])
+          setItems([])
         }
       } catch (error) {
         console.error('Error fetching food items:', error)
@@ -83,7 +83,7 @@ export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTab
   }, [user, today, authLoading]) // Add authLoading to dependencies
 
   // Update the totalCalories calculation
-  const totalCalories = foodItems.reduce((sum, item) => sum + Number(item.calories), 0)
+  const totalCalories = items.reduce((sum, item) => sum + Number(item.calories), 0)
 
   const deleteFoodItem = async (item: FoodItem) => {
     if (!user) {
@@ -97,7 +97,7 @@ export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTab
         food: arrayRemove(item)
       })
 
-      setFoodItems(prevItems => prevItems.filter(i => i !== item))
+      setItems(prevItems => prevItems.filter(i => i !== item))
     } catch (error) {
       console.error('Error deleting food item:', error)
       setError('Failed to delete food item')
@@ -121,9 +121,9 @@ export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTab
   return (
     <div className="w-[95%] max-w-[100%] mx-auto px-3 py-4 mb-6 -mt-4 bg-gradient-to-br from-orange-100 to-red-100 rounded-lg shadow-lg">
       <h3 className="font-bold text-2xl mb-4 text-orange-800">Today's Food Diary</h3>
-      {foodItems.length > 0 ? (
+      {items.length > 0 ? (
         <ul className="space-y-2">
-          {foodItems.map((item, index) => (
+          {items.map((item, index) => (
             <li key={index} className="flex justify-between items-center bg-white p-3 rounded-lg shadow transition-all hover:shadow-md">
               <div className="flex items-center space-x-2">
                 <span className="text-2xl">{getEmoji(item.food)}</span>
