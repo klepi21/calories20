@@ -27,12 +27,12 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-center">Welcome to Calorie Tracker</h2>
-        <p className="text-center text-gray-600">Sign in to start tracking your calories</p>
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md relative z-10">
+        <h2 className="text-3xl font-bold text-center">Welcome to AI Calorie Tracker</h2>
+        <p className="text-center text-gray-600">Sign in to start A.I.-tracking your calories</p>
         <Button 
           onClick={handleGoogleSignIn} 
-          className="w-full flex items-center justify-center space-x-2"
+          className="w-full flex items-center justify-center space-x-2 relative z-20"
         >
           <FcGoogle className="w-5 h-5" />
           <span>Sign in with Google</span>
