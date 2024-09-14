@@ -25,9 +25,9 @@ export default function CalendarPage() {
         <Button onClick={handleNextDay}>&gt;</Button>
       </div>
       <CalorieTable foodItems={[
-        { name: "Sandwich", calories: 350 },
-        { name: "Salad", calories: 120 },
-        { name: "Yogurt", calories: 150 }
+        { food: "Sandwich", calories: 350 },
+        { food: "Salad", calories: 120 },
+        { food: "Yogurt", calories: 150 }
       ]} />
     </div>
   )

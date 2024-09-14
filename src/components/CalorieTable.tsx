@@ -17,8 +17,8 @@ import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 
 interface FoodItem {
-  calories: number;
   food: string;
+  calories: number;
 }
 
 const foodEmojis: { [key: string]: string } = {
@@ -37,8 +37,12 @@ const foodEmojis: { [key: string]: string } = {
   "ramen": "🍜", "stew": "🍲", "fish": "🐟", "rice": "🍚", "dessert": "🍮"
 }
 
-export default function CalorieTable() {
-  const [foodItems, setFoodItems] = useState<FoodItem[]>([])
+interface CalorieTableProps {
+  foodItems: FoodItem[];
+}
+
+export default function CalorieTable({ foodItems: initialFoodItems }: CalorieTableProps) {
+  const [foodItems, setFoodItems] = useState<FoodItem[]>(initialFoodItems)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   const { user, loading: authLoading } = useAuth() // Add loading state from useAuth
